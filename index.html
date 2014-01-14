@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Django-dev-commands by ikame</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Django-dev-commands</h1>
+        <h2>Useful commands for developing Django applications.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/ikame/django-dev-commands/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/ikame/django-dev-commands/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/ikame/django-dev-commands" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="django-dev-commands" class="anchor" href="#django-dev-commands"><span class="octicon octicon-link"></span></a>django-dev-commands</h1>
+
+<p>Useful commands for developing Django applications.</p>
+
+<h2>
+<a name="available-commands" class="anchor" href="#available-commands"><span class="octicon octicon-link"></span></a>Available commands</h2>
+
+<ul>
+<li>
+<code>conf</code> - Show the value of loaded settings.</li>
+<li>
+<code>run</code> - Run a python file within your Django project environment.</li>
+<li>
+<code>settings</code> - Run other Django commands temporarily overriding some project settings.</li>
+<li>
+<code>commands</code> - List only commands of the specified apps.</li>
+<li>
+<code>call</code> - Call the given functions and print their results.</li>
+</ul><h2>
+<a name="getting-help" class="anchor" href="#getting-help"><span class="octicon octicon-link"></span></a>Getting help</h2>
+
+<p>Run: <code>python manage.py &lt;command&gt; -h</code> for getting help of a command.</p>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<h3>
+<a name="conf" class="anchor" href="#conf"><span class="octicon octicon-link"></span></a><code>conf</code>
+</h3>
+
+<h4>
+<a name="list-all-loaded-settings" class="anchor" href="#list-all-loaded-settings"><span class="octicon octicon-link"></span></a>List all loaded settings</h4>
+
+<pre><code>python manage.py conf
+</code></pre>
+
+<h4>
+<a name="filter-by-setting-name" class="anchor" href="#filter-by-setting-name"><span class="octicon octicon-link"></span></a>Filter by setting name</h4>
+
+<p>The search is case insensitive and is treated as a regular expression.</p>
+
+<pre><code>python manage.py conf "debug$" "use_tz"
+</code></pre>
+
+<h3>
+<a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a><code>run</code>
+</h3>
+
+<h4>
+<a name="run-a-python-file" class="anchor" href="#run-a-python-file"><span class="octicon octicon-link"></span></a>Run a python file</h4>
+
+<p>Run a python file within your Django environment:</p>
+
+<pre><code>python manage.py run path/to/my/script.py
+</code></pre>
+
+<h4>
+<a name="run-multiple-files" class="anchor" href="#run-multiple-files"><span class="octicon octicon-link"></span></a>Run multiple files</h4>
+
+<pre><code>python manage.py run path/to/my/script_1.py path/to/my/script_2.py
+</code></pre>
+
+<h4>
+<a name="interrupting-execution-within-the-running-file" class="anchor" href="#interrupting-execution-within-the-running-file"><span class="octicon octicon-link"></span></a>Interrupting execution within the running file</h4>
+
+<p>You can raise within a <code>CommandError</code> exception within your script anytime you want to interrupt the execution. Is not necessary that you import such an exception since it is available automatically in the execution environment:</p>
+
+<p>Let's say you have the following <code>main.py</code> script:</p>
+
+<div class="highlight highlight-python"><pre><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s">"Can't run if DEBUG is True!"</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="settings" class="anchor" href="#settings"><span class="octicon octicon-link"></span></a><code>settings</code>
+</h3>
+
+<h4>
+<a name="temporarily-override-a-setting-while-running-a-command" class="anchor" href="#temporarily-override-a-setting-while-running-a-command"><span class="octicon octicon-link"></span></a>Temporarily override a setting while running a command</h4>
+
+<p>Let's say you have the following <code>main.py</code> script:</p>
+
+<div class="highlight highlight-python"><pre><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s">"Can't run if DEBUG is True!"</span><span class="p">)</span>
+</pre></div>
+
+<p>You can turn <strong>DEBUG</strong> off while running the <code>run</code> command with:</p>
+
+<pre><code>python manage.py settings DEBUG=False --exec "run path/to/main.py"
+</code></pre>
+
+<h4>
+<a name="you-can-pass-any-valid-python-code-as-a-setting" class="anchor" href="#you-can-pass-any-valid-python-code-as-a-setting"><span class="octicon octicon-link"></span></a>You can pass any valid python code as a setting</h4>
+
+<pre><code>python manage.py settings "DATABASES['default']['engine'] = 'django.db.backends.sqlite3'" --exec "runserver"
+</code></pre>
+
+<h3>
+<a name="commands" class="anchor" href="#commands"><span class="octicon octicon-link"></span></a><code>commands</code>
+</h3>
+
+<p>List the available commands of only <strong>auth</strong> and <strong>staticfiles</strong>:</p>
+
+<pre><code>python manage.py commands auth staticfiles
+</code></pre>
+
+<h3>
+<a name="call" class="anchor" href="#call"><span class="octicon octicon-link"></span></a><code>call</code>
+</h3>
+
+<p><em>TODO: Add support for passing argument and keyword arguments via the command line.</em></p>
+
+<h4>
+<a name="call-a-function-a-print-its-results" class="anchor" href="#call-a-function-a-print-its-results"><span class="octicon octicon-link"></span></a>Call a function a print its results</h4>
+
+<pre><code>python manage.py call django.core.management.get_commands
+</code></pre>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
