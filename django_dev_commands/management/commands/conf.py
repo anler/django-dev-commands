@@ -33,7 +33,7 @@ def list_settings(limit_to=None):
 
 
 class Command(BaseCommand):
-    args = '<setting-name ...>'
+    args = '<setting-name-regex ...>'
     help = __doc__
 
     def handle(self, *args, **options):
