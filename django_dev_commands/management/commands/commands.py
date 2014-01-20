@@ -26,7 +26,7 @@ class Command(BaseCommand):
     def handle(self, *filters, **options):
         if filters:
             style = color_style()
-            output = set()p
+            output = set()
             for app, command in get_filtered_commands(*filters):
                 if app not in output:
                     self.stdout.write(style.NOTICE("\n[{}]\n".format(app)))
@@ -34,4 +34,3 @@ class Command(BaseCommand):
                 self.stdout.write("{}\n".format(command))
         else:
             execute_from_command_line(["manage.py"])
-            

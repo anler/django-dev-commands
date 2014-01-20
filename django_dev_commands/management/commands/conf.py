@@ -5,7 +5,9 @@ If names are passed through the command line, limit the output to those that mat
 The match is case insensitive.
 """
 import re
+import pprint
 
+from django.core.management.color import color_style
 from django.core.management.base import BaseCommand, CommandError
 
 
@@ -31,11 +33,13 @@ def list_settings(limit_to=None):
         yield name, value
 
 
-
 class Command(BaseCommand):
     args = '<setting-name-regex ...>'
     help = __doc__
 
     def handle(self, *args, **options):
+        style = color_style()
+
         for name, value in list_settings(limit_to=args):
-            self.stdout.write("{} = {!r}\n".format(name, value))
+            self.stdout.write(style.NOTICE("\n{} =>\n".format(name)))
+            self.stdout.write(style.SQL_FIELD("{}\n".format(pprint.pformat(value))))
