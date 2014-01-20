@@ -72,6 +72,10 @@ You can turn **DEBUG** off while running the `run` command with:
 
     python manage.py settings DEBUG=False --exec "run path/to/main.py"
 
+Very useful when running celery in my dev environment and I don't want any memory leak:
+
+    python manage.py settings DEBUG=False --exec "celeryd"
+
 #### You can pass any valid python code as a setting####
 
     python manage.py settings "DATABASES['default']['engine'] = 'django.db.backends.sqlite3'" --exec "runserver"
