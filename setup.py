@@ -10,7 +10,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_NAME = "django-dev-commands"
 PROJECT_URL = "https://github.com/ikame/django-dev-commands"
-PROJECT_VERSION = "1.0.1"
+PROJECT_VERSION = "1.0.2"
 PROJECT_DESCRIPTION = "Useful commands for developing Django applications."
 
 AUTHOR = "ikame"
@@ -41,6 +41,7 @@ setup(name=PROJECT_NAME,
       author_email=AUTHOR_EMAIL,
       url=PROJECT_URL,
       license="MIT",
+      packages=["django_dev_commands"],
       install_requires=["six"],
       tests_require=["pytest", "mock"],
       cmdclass={"test": PyTest},
