@@ -85,6 +85,12 @@
 <pre><code>python manage.py run path/to/my/script.py
 </code></pre>
 
+<p>You can also supply arguments to the file. <code>sys.argv</code> inside the
+script will be the same as if the script is executed directly:</p>
+
+<pre><code>python manage.py run path/to/my/script.py:"argument --another-argument=something"
+</code></pre>
+
 <h4>
 <a name="run-multiple-files" class="anchor" href="#run-multiple-files"><span class="octicon octicon-link"></span></a>Run multiple files</h4>
 
@@ -122,6 +128,11 @@
 <p>You can turn <strong>DEBUG</strong> off while running the <code>run</code> command with:</p>
 
 <pre><code>python manage.py settings DEBUG=False --exec "run path/to/main.py"
+</code></pre>
+
+<p>Very useful when running celery in my dev environment and I don't want any memory leak:</p>
+
+<pre><code>python manage.py settings DEBUG=False --exec "celeryd"
 </code></pre>
 
 <h4>
