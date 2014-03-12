@@ -12,12 +12,6 @@ To install, simply run:
 
     $ pip install django-dev-commands
 
-Or, directly from the main repository:
-
-.. code-block:: bash
-
-    $ pip install -e git+http://github.com/ikame/django-dev-commands.git#egg=django-dev-commands
-
 See `project's website`_ for more information.
 
 .. _project's website: https://github.com/ikame/django-dev-commands

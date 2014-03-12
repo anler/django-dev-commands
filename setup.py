@@ -10,7 +10,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_NAME = "django-dev-commands"
 PROJECT_URL = "https://github.com/ikame/django-dev-commands"
-PROJECT_VERSION = "1.0.2"
+PROJECT_VERSION = "1.1.0"
 PROJECT_DESCRIPTION = "Useful commands for developing Django applications."
 
 AUTHOR = "ikame"
@@ -22,11 +22,13 @@ try:
 except IOError:
     README = PROJECT_URL
 
+
 class PyTest(TestCommand):
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = []
         self.test_suite = True
+
     def run_tests(self):
         import pytest
         errno = pytest.main(self.test_args)
@@ -41,7 +43,8 @@ setup(name=PROJECT_NAME,
       author_email=AUTHOR_EMAIL,
       url=PROJECT_URL,
       license="MIT",
-      packages=["django_dev_commands"],
+      packages=["django_dev_commands", "django_dev_commands.management",
+                "django_dev_commands.management.commands"],
       install_requires=["six"],
       tests_require=["pytest", "mock"],
       cmdclass={"test": PyTest},

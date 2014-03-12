@@ -3,6 +3,11 @@
 History
 -------
 
+1.0.1 (Wed Mar 12 12:09:23 CET 2014)
++++++++++++++++++++++++++++++++++++++++
+
+- Support for passing arguments to scripts when using the `run` command
+
 1.0.1 (Mon 27 Jan 2014 12:27:58 PM CET)
 +++++++++++++++++++++++++++++++++++++++
 

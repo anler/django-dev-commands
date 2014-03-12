@@ -37,6 +37,11 @@ Run a python file within your Django environment:
 
     python manage.py run path/to/my/script.py
 
+You can also supply arguments to the file. `sys.argv` inside the
+script will be the same as if the script is executed directly:
+
+    python manage.py run path/to/my/script.py:"argument --another-argument=something"
+
 #### Run multiple files ####
 
     python manage.py run path/to/my/script_1.py path/to/my/script_2.py
