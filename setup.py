@@ -10,7 +10,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 PROJECT_NAME = "django-dev-commands"
 PROJECT_URL = "https://github.com/ikame/django-dev-commands"
-PROJECT_VERSION = "1.1.0"
+PROJECT_VERSION = "1.1.1"
 PROJECT_DESCRIPTION = "Useful commands for developing Django applications."
 
 AUTHOR = "ikame"

@@ -30,7 +30,12 @@ class Command(BaseCommand):
         if not args:
             raise CommandError("You must specify at least a python file path to execute.")
         args = map(operator.methodcaller("split", ":"), args)
-        for filename, filename_args in args:
+        for arg in args:
+            try:
+                filename, filename_args = arg
+            except ValueError:
+                filename, = arg
+                filename_args = ""
             if not path.isfile(filename):
                 raise CommandError("{!r} is not a valid file path.".format(filename))
             run(filename, filename_args)
